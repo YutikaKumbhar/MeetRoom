@@ -1,6 +1,6 @@
 import {Server} from 'socket.io';
 
-let connectons = {}
+let connections = {}
 let messages = {}
 let timeOnline = {}
 
