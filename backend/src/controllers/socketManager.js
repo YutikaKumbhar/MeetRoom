@@ -24,7 +24,7 @@ export const connectToSocket = (server) => {
                 connections[path] = []
             }
 
-            connection[path].push(socket.id)
+            connections[path].push(socket.id)
 
             timeOnline[socket.id] = new Date();
 
