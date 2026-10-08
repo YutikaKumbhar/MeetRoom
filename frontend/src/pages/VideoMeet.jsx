@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import styles from "../styles/videoComponent.module.css";
 import { Badge, IconButton,TextField } from '@mui/material';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff';
@@ -28,6 +29,7 @@ const peerConfigConnections = {
 
 export default function VideoMeetComponent() {
 
+    const navigate = useNavigate();
     var socketRef = useRef();
     let socketIdRef = useRef();
 
@@ -433,7 +435,7 @@ export default function VideoMeetComponent() {
             let tracks = localVideoRef.current.srcObject.getTracks();
             tracks.forEach(track => track.stop())
         } catch(e) { }
-        window.location.href = "/room"
+        navigate("/room")
         
         
     }
