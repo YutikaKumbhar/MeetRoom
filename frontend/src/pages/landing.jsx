@@ -3,11 +3,14 @@ import '../App.css'
 import { Link, useNavigate } from 'react-router-dom'
 
 export default function LandingPage() {
+
+  const router = useNavigate();
+
   return (
     <div className="landingPageContainer">
       <nav>
           <div className='navHeader'>
-            <h2>MeetRoom</h2>
+            <h2>Meet<span style={{color:"#FF9839"}}>Room</span></h2>
           </div>
 
           <div className='navlist'>
@@ -21,7 +24,6 @@ export default function LandingPage() {
 
             <div onClick={() => {
               router("/auth")
-
             }} role='button'>
               <p>Login</p>
             </div>
@@ -30,7 +32,7 @@ export default function LandingPage() {
 
       <div className="landingMainContainer">
         <div>
-          <h1><span style={{color:"#FF9839"}}>Connect</span> with your loved Ones</h1>
+          <h1><span style={{color:"#FF9839"}}>Connect</span> with your loved ones</h1>
 
           <p>Cover a distance by MeetRoom</p>
           <div role='button'>
@@ -47,4 +49,3 @@ export default function LandingPage() {
     </div>
   )
 }
-

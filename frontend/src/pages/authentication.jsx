@@ -16,6 +16,7 @@ import ForgotPassword from '../components/ForgetPassword';
 import AppTheme from '../shared-theme/AppTheme';
 import ColorModeSelect from '../shared-theme/ColorModeSelect';
 import Snackbar from '@mui/material/Snackbar';
+import { AuthContext } from '../contexts/AuthContext';
 
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -60,7 +61,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 
-export default function SignIn(props) {
+export default function Authentication(props) {
 
   // 0 = Sign In
   // 1 = Sign Up
@@ -70,229 +71,41 @@ export default function SignIn(props) {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const [usernameError, setUsernameError] = React.useState(false);
-  const [usernameErrorMessage, setUsernameErrorMessage] = React.useState('');
-
-  const [passwordError, setPasswordError] = React.useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
-
-  const [nameError, setNameError] = React.useState(false);
-  const [nameErrorMessage, setNameErrorMessage] = React.useState('');
-
   const [error, setError] = React.useState('');
-
   const [message, setMessage] = React.useState('');
-  const [open, setOpen] = React.useState(false);
 
-  const [forgotPasswordOpen, setForgotPasswordOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false); //snackbar
+
 
   // Get authentication functions from AuthContext
-  // const { handleRegister, handleLogin } = React.useContext(AuthContext);
+  const { handleRegister, handleLogin } = React.useContext(AuthContext);
 
-  const handleClickOpen = () => {
-    setForgotPasswordOpen(true);
-  };
-
-
-  const handleClose = () => {
-    setForgotPasswordOpen(false);
-  };
-
-
-  const resetErrors = () => {
-    setError('');
-
-    setUsernameError(false);
-    setUsernameErrorMessage('');
-
-    setPasswordError(false);
-    setPasswordErrorMessage('');
-
-    setNameError(false);
-    setNameErrorMessage('');
-  };
-
-
-  const validateInputs = () => {
-
-    resetErrors();
-
-    let isValid = true;
-
-
-    // Validate full name only during Sign Up
-    if (formState === 1) {
-
-      if (!name.trim()) {
-        setNameError(true);
-        setNameErrorMessage('Please enter your full name.');
-        isValid = false;
-      }
-    }
-
-
-    // Validate username
-    if (!username.trim()) {
-
-      setUsernameError(true);
-      setUsernameErrorMessage('Please enter your username.');
-
-      isValid = false;
-    }
-
-
-    // Validate password
-    if (!password) {
-
-      setPasswordError(true);
-      setPasswordErrorMessage('Please enter your password.');
-
-      isValid = false;
-
-    } else if (password.length < 6) {
-
-      setPasswordError(true);
-      setPasswordErrorMessage(
-        'Password must be at least 6 characters long.'
-      );
-
-      isValid = false;
-    }
-
-
-    return isValid;
-  };
-
-   const handleAuth = async (event) => {
-
-    event.preventDefault();
-
-    // Don't continue if validation fails
-    if (!validateInputs()) {
-      return;
-    }
-
-
-    try {
-
-      setError('');
-
-
-      // =========================
-      // SIGN IN
-      // =========================
-
-      if (formState === 0) {
-
-        const result = await handleLogin(
+  let handleAuth = async() => {
+    try{
+      if(formState === 0){
+        let result = await handleLogin(
           username,
           password
         );
-
         console.log('Login result:', result);
-
       }
-
-
-      // =========================
-      // SIGN UP
-      // =========================
-
-      if (formState === 1) {
-
-        const result = await handleRegister(
-          name,
-          username,
-          password
-        );
-
-        console.log('Register result:', result);
-
-
-        // Show success message
-        setMessage(
-          result || 'Registration successful!'
-        );
-
+      if(formState === 1){
+        let result = await handleRegister(name,username, password);
+        console.log(result);
+        setFullname("");
+        setUsername("");
+        setMessage(result);
         setOpen(true);
-
-
-        // Clear form
-        setName('');
-        setUsername('');
-        setPassword('');
-
-
-        // Clear errors
-        resetErrors();
-
-
-        // Automatically switch to Sign In
+        setError("");
         setFormState(0);
+        setPassword("");
       }
-
-    } catch (err) {
-
-      console.error(err);
-
-      const errorMessage =
-        err?.response?.data?.message ||
-        err?.message ||
-        'Something went wrong. Please try again.';
-
-      setError(errorMessage);
+    }catch (err){
+      let message = (err.response.data.message);
+      setError(message);
     }
-  };
+  }
 
-
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-
-  // const handleSubmit = (event) => {
-  //   if (username || emailError || passwordError) {
-  //     event.preventDefault();
-  //     return;
-  //   }
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     username: data.get('username'),
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
-  // };
-
-  // const validateInputs = () => {
-  //   const username = document.getElementById('username');
-  //   const email = document.getElementById('email');
-  //   const password = document.getElementById('password');
-
-  //   let isValid = true;
-
-  //   if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-  //     setEmailError(true);
-  //     setEmailErrorMessage('Please enter a valid email address.');
-  //     isValid = false;
-  //   } else {
-  //     setEmailError(false);
-  //     setEmailErrorMessage('');
-  //   }
-
-  //   if (!password.value || password.value.length < 6) {
-  //     setPasswordError(true);
-  //     setPasswordErrorMessage('Password must be at least 6 characters long.');
-  //     isValid = false;
-  //   } else {
-  //     setPasswordError(false);
-  //     setPasswordErrorMessage('');
-  //   }
-
-  //   return isValid;
-  // };
 
   return (
     <AppTheme {...props}>
@@ -301,27 +114,6 @@ export default function SignIn(props) {
         <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
         <Card variant="outlined">
           
-          
-                {/* <Button>
-                <Typography
-                component="h1"
-                variant="h4"
-                sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
-            >
-                Sign in
-            </Typography>
-            </Button> 
-            <Button>
-            <Typography
-            component="h1"
-            variant="h4"
-            sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
-          >
-            Sign up
-          </Typography>
-          </Button>
-          </div>
-            */}
           <div>
             <Button
               fullWidth
@@ -332,11 +124,11 @@ export default function SignIn(props) {
               }
               onClick={() => {
                 setFormState(0);
-                resetErrors();
               }}
             >
-              Sign In
+              <b>SIGN IN</b>
             </Button>
+            <br /> <br />
             <Button
               fullWidth
               variant={
@@ -346,16 +138,13 @@ export default function SignIn(props) {
               }
               onClick={() => {
                 setFormState(1);
-                resetErrors();
               }}
             >
-              Sign Up
+              <b>SIGN UP</b>
             </Button>
           </div>
           
-          {/* ========================= */}
           {/* AUTHENTICATION FORM */}
-          {/* ========================= */}
 
           <Box
             component="form"
@@ -368,49 +157,38 @@ export default function SignIn(props) {
               gap: 2,
             }}
           >
-
-
             {/* FULL NAME - ONLY SIGN UP */}
-
+      
             {formState === 1 && (
-
               <FormControl>
-
                 <FormLabel htmlFor="name">
                   Full Name
                 </FormLabel>
 
                 <TextField
-                  error={nameError}
-                  helperText={nameErrorMessage}
-                  id="name"
-                  name="name"
+                  id="username"
+                  name="username"
                   placeholder="Your full name"
                   value={name}
                   onChange={(e) =>
                     setName(e.target.value)
-                  }
-                  autoFocus
+                  }  
+                  autoFocus               
                   required
                   fullWidth
                 />
-
               </FormControl>
-
             )}
 
 
             {/* USERNAME */}
 
             <FormControl>
-
               <FormLabel htmlFor="username">
                 Username
               </FormLabel>
 
               <TextField
-                error={usernameError}
-                helperText={usernameErrorMessage}
                 id="username"
                 name="username"
                 placeholder="Enter your username"
@@ -422,21 +200,17 @@ export default function SignIn(props) {
                 required
                 fullWidth
               />
-
             </FormControl>
 
 
             {/* PASSWORD */}
 
             <FormControl>
-
               <FormLabel htmlFor="password">
                 Password
               </FormLabel>
 
               <TextField
-                error={passwordError}
-                helperText={passwordErrorMessage}
                 id="password"
                 name="password"
                 type="password"
@@ -451,174 +225,29 @@ export default function SignIn(props) {
 
             </FormControl>
 
-
-            {/* REMEMBER ME - ONLY SIGN IN */}
-
-            {formState === 0 && (
-
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    value="remember"
-                    color="primary"
-                  />
-                }
-                label="Remember me"
-              />
-
-            )}
-
-
-            {/* BACKEND ERROR */}
-
-            {error && (
-
-              <Typography
-                sx={{
-                  color: 'error.main',
-                  textAlign: 'center',
-                }}
-              >
-                {error}
-              </Typography>
-
-            )}
-
-
-            {/* FORGOT PASSWORD */}
-
-            {formState === 0 && (
-
-              <ForgotPassword
-                open={forgotPasswordOpen}
-                handleClose={handleClose}
-              />
-
-            )}
-
+            <p style={{color: "red"}}>{error}</p>
 
             {/* SUBMIT BUTTON */}
-
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
+              onClick={handleAuth}
             >
-              {formState === 0
-                ? 'Sign in'
-                : 'Create account'}
+              {formState === 0 ? 'LogIn' : 'Register'}
             </Button>
-
-
-            {/* FORGOT PASSWORD LINK */}
-
-            {formState === 0 && (
-
-              <Link
-                component="button"
-                type="button"
-                onClick={handleClickOpen}
-                variant="body2"
-                sx={{ alignSelf: 'center' }}
-              >
-                Forgot your password?
-              </Link>
-
-            )}
 
           </Box>
         </Card>
       </SignInContainer>
 
-
       {/* SUCCESS MESSAGE */}
-
       <Snackbar
         open={open}
         autoHideDuration={4000}
         message = {message}
       />
-
-
-
-
-
-          {/* <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%',
-              gap: 2,
-            }}
-          >
-            <FormControl>
-              <FormLabel htmlFor="email">Username</FormLabel>
-              <TextField
-                error={emailError}
-                helperText={emailErrorMessage}
-                id="email"
-                type="email"
-                name="email"
-                placeholder="your-name"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-                color={username ? 'false' : 'primary'}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <TextField
-                error={emailError}
-                helperText={emailErrorMessage}
-                id="email"
-                type="email"
-                name="email"
-                placeholder="your@email.com"
-                autoComplete="email"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-                color={emailError ? 'error' : 'primary'}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="password">Password</FormLabel>
-              <TextField
-                error={passwordError}
-                helperText={passwordErrorMessage}
-                name="password"
-                placeholder="••••••"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-                color={passwordError ? 'error' : 'primary'}
-              />
-            </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={validateInputs}
-            >
-              Sign in
-            </Button>
-            
-          </Box> */}
-          
+      
     </AppTheme>
   );
 }

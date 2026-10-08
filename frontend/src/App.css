@@ -3,63 +3,267 @@
 }
 
 .landingPageContainer {
+    position: relative;
+    isolation: isolate;
     width: 100vw;
-    height: 100vh;
-    background: url("/background.png");
-    background-repeat: no-repeat;
-    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+    background:
+        linear-gradient(110deg, rgba(9, 15, 39, 0.94), rgba(20, 30, 69, 0.68)),
+        url("/background.png") center / cover no-repeat;
     color: white;
 }
 
+.landingPageContainer::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 78% 48%, rgba(85, 113, 255, 0.3), transparent 43%),
+        radial-gradient(ellipse at 10% 90%, rgba(255, 152, 57, 0.12), transparent 35%);
+    content: "";
+}
+
 .landingPageContainer nav {
-    padding-inline: 1.2 rem;
-    padding-block: 1.6rem;
-    padding-left: 15px;
-    padding-right: 15px;
+    width: min(100%, 1280px);
+    margin: 0 auto;
+    padding: 1.5rem clamp(20px, 5vw, 64px);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .landingPageContainer nav h2 {
-    font-size: 1.8rem;
-    font-weight: 500;
+    margin: 0;
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
 }
 
 .landingPageContainer nav .navlist {
   display: flex;
-  gap: 1.6rem;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2rem);
   cursor: pointer;
 }
 
+.landingPageContainer nav .navlist > p {
+  color: rgba(255, 255, 255, 0.83);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 160ms ease;
+}
+
+.landingPageContainer nav .navlist > p:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.landingPageContainer nav .navlist > div[role='button'] {
+  padding: 0.7rem 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.landingPageContainer nav .navlist > div[role='button']:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.18);
+}
+
 .landingMainContainer {
+    width: min(100%, 1280px);
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    padding-inline: 3rem;
-    height: 80vh;
-    align-items:center;
+    padding: 32px clamp(20px, 5vw, 64px) 56px;
+    min-height: calc(100vh - 90px);
+    align-items: center;
+    gap: 36px;
 }
 
 .landingMainContainer > div:nth-child(1) {
-    font-size: 2.2rem;
+    max-width: 620px;
+}
+
+.landingMainContainer > div:nth-child(1)::before {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.88);
+    background: rgba(255, 255, 255, 0.08);
+    content: "VIDEO MEETINGS, MADE EASY";
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    backdrop-filter: blur(10px);
+}
+
+.landingMainContainer > div:nth-child(1) h1 {
+    margin: 0;
+    color: white;
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    font-weight: 700;
+    letter-spacing: -0.055em;
+    line-height: 1.08;
+    text-wrap: balance;
+    text-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+}
+
+.landingMainContainer > div:nth-child(1) > p {
+    margin-top: 22px;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
 }
 
 .landingMainContainer > div:nth-child(1) div[role='button'] {
-    background: #D97500;
+    background: linear-gradient(135deg, #ff9839, #e87418);
     width: fit-content;
-    padding: 1rem;
-     border-radius: 20px;
-    margin-top: 1.9rem;
+    padding: 0.9rem 1.35rem;
+    border-radius: 14px;
+    margin-top: 1.8rem;
+    box-shadow: 0 10px 26px rgba(232, 116, 24, 0.27);
+    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
 
+.landingMainContainer > div:nth-child(1) div[role='button']:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(232, 116, 24, 0.36);
+    filter: brightness(1.06);
 }
 
 .landingMainContainer > div:nth-child(1) div[role='button'] a {
     text-decoration: none;
     color: white;
-    font-size: 1.7rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.landingMainContainer > div:nth-child(2) {
+    position: relative;
+    display: grid;
+    flex: 0 1 48%;
+    place-items: center;
+}
+
+.landingMainContainer > div:nth-child(2)::before {
+    position: absolute;
+    width: min(35vw, 430px);
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.13), rgba(117, 139, 255, 0.04) 58%, transparent 70%);
+    box-shadow:
+        0 0 0 24px rgba(255, 255, 255, 0.025),
+        0 0 0 48px rgba(255, 255, 255, 0.02);
+    content: "";
 }
 
 .landingMainContainer >div:nth-child(2) img {
-    height : 70vh;
+    position: relative;
+    z-index: 1;
+    display: block;
+    max-width: 100%;
+    height: min(66vh, 620px);
     width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 28px 42px rgba(0, 0, 0, 0.32));
+    animation: landingFloat 6s ease-in-out infinite;
+}
+
+@keyframes landingFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@media (max-width: 700px) {
+    .landingPageContainer nav {
+        padding-block: 1.2rem;
+    }
+
+    .landingMainContainer {
+        min-height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 52px;
+    }
+
+    .landingMainContainer > div:nth-child(2) {
+        align-self: center;
+    }
+
+    .landingMainContainer > div:nth-child(2) img {
+        height: min(42vh, 360px);
+    }
+
+    .landingMainContainer > div:nth-child(2)::before {
+        width: min(72vw, 330px);
+    }
+}
+
+@media (max-width: 440px) {
+    .landingPageContainer nav .navlist {
+        gap: 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .landingPageContainer nav .navlist > div[role='button'] {
+        padding: 0.6rem 0.8rem;
+    }
+
+    .landingMainContainer {
+        padding-top: 36px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .landingMainContainer > div:nth-child(2) img {
+        animation: none;
+    }
+}
+
+.navBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 20px;
+    text-align: center;
+}
+
+.meetContainer {
+  display: flex;
+  padding-inline: 20px;
+  height: 80vh;
+  gap: 10vw;
+  justify-content: center;
+}
+
+
+
+.leftPanel {
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+}
+
+.rightPanel {
+  display: flex;
+  align-items: center;
+}
+
+.rightPanel > img {
+  width: 30vw;
+  height: auto;
+  border-radius: 20px;
 }

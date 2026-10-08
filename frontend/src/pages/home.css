@@ -1,0 +1,281 @@
+.homePage {
+  --home-ink: #18243a;
+  --home-muted: #69768c;
+  --home-accent: #5268e8;
+  min-height: 100vh;
+  padding: 0 clamp(20px, 6vw, 88px) 48px;
+  color: var(--home-ink);
+  background:
+    radial-gradient(ellipse at 88% 18%, rgba(116, 133, 255, 0.16), transparent 34%),
+    radial-gradient(ellipse at 8% 86%, rgba(78, 196, 198, 0.11), transparent 32%),
+    #f7f9ff;
+  text-align: left;
+}
+
+.homeNavBar {
+  width: min(100%, 1200px);
+  min-height: 88px;
+  margin: 0 auto;
+  padding: 0;
+  border-bottom: 1px solid rgba(50, 67, 104, 0.09);
+}
+
+.homeBrand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.homeBrandMark {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 13px;
+  color: #fff;
+  background: linear-gradient(145deg, #6578f2, #4258d5);
+  box-shadow: 0 7px 16px rgba(75, 96, 220, 0.23);
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.homeBrand h2 {
+  margin: 0;
+  color: var(--home-ink);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.7px;
+}
+
+.homeBrand h2 span {
+  color: var(--home-accent);
+}
+
+.homeNavActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.homeNavActions .MuiButton-root {
+  min-height: 42px;
+  border-radius: 12px;
+  color: #536078;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.homeNavActions .MuiButton-root:hover {
+  background: rgba(82, 104, 232, 0.08);
+}
+
+.homeNavActions .historyButton {
+  padding-inline: 14px;
+}
+
+.homeMeetContainer {
+  width: min(100%, 1200px);
+  min-height: min(700px, calc(100vh - 100px));
+  height: auto;
+  margin: 0 auto;
+  padding: clamp(42px, 8vh, 92px) 0;
+  gap: clamp(36px, 7vw, 100px);
+  align-items: center;
+}
+
+.homeIntro {
+  flex: 1 1 52%;
+  min-width: 0;
+}
+
+.homeIntroContent {
+  width: min(100%, 570px);
+}
+
+.homeEyebrow {
+  margin: 0 0 18px;
+  color: var(--home-accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.homeIntro h1 {
+  max-width: 590px;
+  margin: 0;
+  color: var(--home-ink);
+  font-size: clamp(42px, 5.2vw, 66px);
+  font-weight: 700;
+  letter-spacing: -2.6px;
+  line-height: 1.08;
+}
+
+.homeDescription {
+  max-width: 480px;
+  margin-top: 21px;
+  color: var(--home-muted);
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.meetingJoinForm {
+  display: flex;
+  width: min(100%, 530px);
+  gap: 12px;
+  margin-top: 34px;
+  padding: 8px;
+  border: 1px solid rgba(65, 82, 127, 0.1);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 14px 40px rgba(38, 57, 105, 0.09);
+}
+
+.meetingCodeInput {
+  flex: 1;
+}
+
+.meetingCodeInput .MuiOutlinedInput-root {
+  border-radius: 12px;
+}
+
+.meetingJoinForm .MuiButton-root {
+  min-width: 142px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6578f2, #4b60dd);
+  box-shadow: 0 7px 15px rgba(75, 96, 220, 0.2);
+  font-weight: 600;
+  text-transform: none;
+}
+
+.meetingJoinForm .MuiButton-root:hover {
+  background: linear-gradient(135deg, #596eea, #4055d0);
+}
+
+.homeHint {
+  margin-top: 14px;
+  color: #8a95a8;
+  font-size: 13px;
+}
+
+.homeVisual {
+  position: relative;
+  flex: 1 1 48%;
+  min-width: 0;
+  min-height: 390px;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 34px;
+  background: linear-gradient(145deg, rgba(235, 240, 255, 0.94), rgba(230, 249, 250, 0.8));
+  box-shadow: 0 26px 70px rgba(49, 71, 126, 0.12);
+}
+
+.homeVisualGlow {
+  position: absolute;
+  inset: 12% 10%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.68);
+  filter: blur(38px);
+}
+
+.homeVisual > img {
+  position: relative;
+  z-index: 1;
+  width: min(82%, 430px);
+  height: auto;
+  border-radius: 24px;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 26px rgba(41, 61, 113, 0.1));
+}
+
+.homeVisualCaption {
+  position: absolute;
+  z-index: 2;
+  right: 22px;
+  bottom: 22px;
+  left: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 14px;
+  color: #46536b;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 8px 24px rgba(38, 57, 105, 0.09);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.statusDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #37bd8a;
+  box-shadow: 0 0 0 4px rgba(55, 189, 138, 0.13);
+}
+
+@media (max-width: 760px) {
+  .homePage {
+    padding-inline: 20px;
+  }
+
+  .homeNavBar {
+    min-height: 74px;
+  }
+
+  .homeMeetContainer {
+    min-height: auto;
+    padding-block: 52px 36px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 38px;
+  }
+
+  .homeIntro {
+    min-height: auto;
+  }
+
+  .homeIntro h1 {
+    font-size: clamp(40px, 10vw, 58px);
+  }
+
+  .homeVisual {
+    min-height: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .homeNavActions {
+    gap: 0;
+  }
+
+  .homeNavActions .historyButton {
+    min-width: 40px;
+    padding-inline: 8px;
+  }
+
+  .homeNavActions .historyButton .MuiButton-startIcon {
+    margin-right: 5px;
+  }
+
+  .meetingJoinForm {
+    flex-direction: column;
+  }
+
+  .meetingJoinForm .MuiButton-root {
+    min-height: 48px;
+  }
+
+  .homeVisual {
+    min-height: 270px;
+    border-radius: 26px;
+  }
+
+  .homeVisualCaption {
+    right: 14px;
+    bottom: 14px;
+    left: 14px;
+  }
+}
